@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        console.log("while example");
+        let i=19;
+        while(i<=10){
+            console.log("i=",i);
+            i++;
+            
+        }
+
+        console.log("for loop");
+
+        for(i=12;i<=20;i++){
+            console.log("i=",i);
+            
+        }
+
+        console.log("Exit control loop:Do while");
+
+        let j=19;
+        do{
+            console.log("j=",j);
+            j++
+            
+        }while(i<=10)
+        
+        function createTable(){
+            let num = document.getElementById('num').value;
+            console.log(num);
+            let str="";
+            for(i=1;i<=10;i++){
+                 str += `${num} * ${i}= ${num*i}<br>`
+            }
+            document.getElementById('result').innerHTML=str; 
+        }
+        
+    </script>
+</head>
+<body>
+    <fieldset>
+        <legend>
+           Create Table
+        </legend>
+         <label for="">Enter number</label>
+            <input type="text" name="" id="num">
+            <button onclick="createTable()">Create Table</button>
+            <p id="result"></p>
+    </fieldset>
+
+</body>
+</html>
