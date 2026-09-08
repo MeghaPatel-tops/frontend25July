@@ -66,12 +66,26 @@
 
     <script>
         let todoArray =[];
-
+        let editId=null;
+         let taskname= document.getElementById('txt1');
         document.getElementById('btnsubmit').addEventListener('click',()=>{
-               let taskname= document.getElementById('txt1');
-               todoArray.push(taskname.value);
-               console.log(todoArray);
-               taskname.value=""
+              
+                if(editId==null){
+                    console.log("add");
+                    
+                      todoArray.push(taskname.value);
+                        console.log(todoArray);
+                        taskname.value=""
+                }
+                else{
+                    console.log(editId);
+                    
+                    console.log("edit");
+                    let tname= taskname.value;
+                    todoArray.splice(editId,1,tname);
+                    taskname.value=""
+                    editId=null;
+                }
                printTodo();
                
         })
@@ -84,11 +98,11 @@
                                 <span>${todoArray[i]}</span>
 
                                 <div>
-                                    <button class="btn btn-sm btn-warning">
+                                    <button class="btn btn-sm btn-warning" onclick="editTodo(${i})">
                                         Edit
                                     </button>
 
-                                    <button class="btn btn-sm btn-danger">
+                                    <button class="btn btn-sm btn-danger" onclick="delTodo(${i})">
                                         Delete
                                     </button>
                                 </div>
@@ -97,8 +111,18 @@
                `
 
             }
-            console.log(str);
+            
             document.getElementById('listdata').innerHTML=str;
+        }
+
+        function delTodo(i){
+            todoArray.splice(i,1);
+            printTodo();
+
+        }
+         function editTodo(i){
+            taskname.value= todoArray[i]
+            editId=i;
         }
 
     </script>
