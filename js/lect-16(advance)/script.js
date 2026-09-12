@@ -1,5 +1,6 @@
 let pname = document.getElementById('postname');
 let comment = document.getElementById('comments');
+let editId=null;
 
 document.getElementById('frm1').addEventListener('submit',(e)=>{
     e.preventDefault();
@@ -13,8 +14,14 @@ document.getElementById('frm1').addEventListener('submit',(e)=>{
     if(localStorage.getItem('posts')){
         let oldArray = localStorage.getItem('posts');
         oldArray = JSON.parse(oldArray);
-        console.log(oldArray);
-        oldArray.push(postObj);
+       
+       if(editId != null){
+           oldArray.splice(editId,1,postObj);
+           editId=null
+        }
+       else{
+           oldArray.push(postObj);
+       }
          localStorage.setItem('posts',JSON.stringify(oldArray));
         
     }
@@ -41,11 +48,11 @@ function getPost(){
                             <td>${postArray[i].postname}</td>
                             <td>${postArray[i].comment}</td>
                             <td>
-                                <button class="btn btn-sm btn-warning">
+                                <button class="btn btn-sm btn-warning" onclick="editTodo(${i})">
                                     Edit
                                 </button>
 
-                                <button class="btn btn-sm btn-danger">
+                                <button class="btn btn-sm btn-danger" onclick="delTodo(${i})">
                                     Delete
                                 </button>
                             </td>
@@ -63,6 +70,22 @@ function getPost(){
     }
     document.getElementById('padata').innerHTML=str;
 
+}
+
+function editTodo(id){
+    
+       let oldArray = localStorage.getItem('posts');
+        oldArray = JSON.parse(oldArray);
+        pname.value=oldArray[id].postname;
+        comment.value=oldArray[id].comment;
+        editId=id;
+}
+function delTodo(id){
+      let oldArray = localStorage.getItem('posts');
+        oldArray = JSON.parse(oldArray);
+        oldArray.splice(id,1);
+       localStorage.setItem('posts',JSON.stringify(oldArray));
+        getPost();
 }
 
 window.onload= getPost()
